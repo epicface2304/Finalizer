@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html>
+<style>
+h1 {
+  font-family:"Arial Black";
+  color:#ff513f;
+}
+p {
+  font-family:"Arial";
+}
+p1 {
+  font-family:"Arial";
+  color:#333;
+}
+hr {
+  border: none;
+  border-top: 1px solid #444;
+}
+input {
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+}
+</style>
+<script>
+function grade() {  
+  var out = document.getElementById("output");
+  var fw = document.getElementById("finalWeight").value / 100;
+  var cg = document.getElementById("currentGrade").value;
+  var tg = document.getElementById("targetGrade").value;
+  
+  var fg = ((tg - cg * (1.0 - fw)) / fw).toFixed(2);
+  
+	if (fg > 100) {
+  	out.innerHTML = "The best you can do is "
+    + (cg * (1.0 - fw) + 100 * fw).toFixed(2)
+    + "% (if you get a 100% on your finals)";
+  } else if (cg < 0 || tg < 0) {
+  	out.innerHTML = "Dude. You can't have negative grades.";
+  } else if (fw != 0 && cg != 0 && tg != 0) {
+  	out.innerHTML = "You need to get at least a " + fg + "% on your finals";
+  } else {
+  	out.innerHTML = "Please enter all fields.";
+  }
+}
+</script>
+<body>
+  <h1>The Finalizer</h1>
+  <hr/>
+  <i><p1>Worried about finals? This might help.</p1></i>
+  <hr/>
+
+  <p>What's your current grade? (percent)</p>
+  <input id="currentGrade" onchange="grade()" type="number" min="0">
+  <p>How much is your final worth? (percent)</p>
+  <input id="finalWeight" onchange="grade()" type="number" min="0" max="100">
+  <p>What's your minimum acceptable grade? (percent)</p>
+  <input id="targetGrade" onchange="grade()" type="number" min="0">
+  <p>Minimum Final Grade:</p>
+  <p id="output"></p>
+</body>
+</html>
